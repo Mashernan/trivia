@@ -1,0 +1,44 @@
+name: CI-CD-Trivia
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🧾 Clonar repositorio
+      uses: actions/checkout@v3
+
+    - name: 📦 Instalar dependencias necesarias
+      run: |
+        npm install -g htmlhint eslint
+
+    - name: 🧪 Validar HTML con HTMLHint
+      run: |
+        htmlhint index.html || true
+
+    - name: 🧪 Validar JavaScript con ESLint
+      run: |
+        eslint script.js || true
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: >
+      (github.actor == 'TU_USUARIO' || github.actor == 'COLABORADOR1')
+      && github.ref == 'refs/heads/main'
+
+    steps:
+    - name: ⬇️ Clonar repositorio
+      uses: actions/checkout@v3
+
+    - name: 🚀 Deploy a GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
