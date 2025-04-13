@@ -1,4 +1,4 @@
-# 🎯 Trivia 
+# 🎯 Trivia de
 
 Este es un proyecto simple de trivia en JavaScript, ideal para practicar DOM, estilos y lógica de preguntas/selección. Es colaborativo: cualquiera puede agregar nuevas preguntas al array `questions` en `script.js`.
 
